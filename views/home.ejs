@@ -1,0 +1,41 @@
+<h1>EY node test</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+
+
+$(function() { 
+ var socket = io.connect("/");
+console.log(socket)
+socket.on('connection', function(){alert("Connected")});
+
+socket.on('ADRESSE', function(message) {
+console.log("inside")
+console.log(message)
+      $("#adre").text(message.ad)
+    })
+    
+launch=function(){
+
+    var ee = $("#te").val()
+    console.log(ee)
+     socket.emit('MOTOR_ID', ee);
+ }
+launch2=function(){
+
+
+     socket.emit('SOS',"OK");
+ }
+
+});
+ 
+</script>
+
+<p>In<%= title %></p>
+
+<p>Motor ID: </p>
+<textarea id="te" rows="1" cols="100"></textarea>
+ <button type="button" onclick="launch()">Click Me!</button>
+<p>Motor adresse: </p>
+<p id="adre">Pas d'adresse</p>
+ <button type="button2" onclick="launch2()">Click Me!</button>
