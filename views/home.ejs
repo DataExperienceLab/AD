@@ -1,234 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+      <!-- Global stylesheets -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+      <link href="css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+      <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+      <link href="css/core.css" rel="stylesheet" type="text/css">
+      <link href="css/components.css" rel="stylesheet" type="text/css">
+      <link href="css/colors.css" rel="stylesheet" type="text/css">
+      <!-- /global stylesheets -->
+      <!-- Core JS files -->
+      <script type="text/javascript" src="js/plugins/loaders/pace.min.js"></script>
+      <script type="text/javascript" src="js/core/libraries/jquery.min.js"></script>
+      <script type="text/javascript" src="js/core/libraries/bootstrap.min.js"></script>
+      <script type="text/javascript" src="js/plugins/loaders/blockui.min.js"></script>
+      <!-- /core JS files -->
+      <!-- Theme JS files -->
+      <script type="text/javascript" src="js/plugins/visualization/d3/d3.min.js"></script>
+      <script type="text/javascript" src="js/plugins/visualization/d3/d3_tooltip.js"></script>
+      <script type="text/javascript" src="js/plugins/forms/styling/switchery.min.js"></script>
+      <script type="text/javascript" src="js/plugins/forms/styling/uniform.min.js"></script>
+      <script type="text/javascript" src="js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+      <script type="text/javascript" src="js/plugins/ui/moment/moment.min.js"></script>
+      <script type="text/javascript" src="js/plugins/pickers/daterangepicker.js"></script>
+      <script type="text/javascript" src="js/core/app.js"></script>
+      <link href="css/style.css" rel="stylesheet" type="text/css">
+      <!-- /theme JS files -->
+      <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+   </head>
+   <script>
+      $(function() { 
 
-	<!-- Global stylesheets -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-	<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="css/core.css" rel="stylesheet" type="text/css">
-	<link href="css/components.css" rel="stylesheet" type="text/css">
-	<link href="css/colors.css" rel="stylesheet" type="text/css">
-	<!-- /global stylesheets -->
+	  if($("#te").val()=="")
+	  {
+	  $("#BUTTON1").prop('disabled', true);
+	  	  $("#BUTTON2").prop('disabled', true);
+	  }
 
-	<!-- Core JS files -->
-	<script type="text/javascript" src="js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="js/core/libraries/jquery.min.js"></script>
-	<script type="text/javascript" src="js/core/libraries/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/plugins/loaders/blockui.min.js"></script>
-	<!-- /core JS files -->
+	  
+	  $("#te").on('keyup',function() {
+	  	   $("#BUTTON1").prop('disabled', false);
 
-	<!-- Theme JS files -->
-	<script type="text/javascript" src="js/plugins/visualization/d3/d3.min.js"></script>
-	<script type="text/javascript" src="js/plugins/visualization/d3/d3_tooltip.js"></script>
-	<script type="text/javascript" src="js/plugins/forms/styling/switchery.min.js"></script>
-	<script type="text/javascript" src="js/plugins/forms/styling/uniform.min.js"></script>
-	<script type="text/javascript" src="js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-	<script type="text/javascript" src="js/plugins/ui/moment/moment.min.js"></script>
-	<script type="text/javascript" src="js/plugins/pickers/daterangepicker.js"></script>
+	  })
+	  
+	  
+       var socket = io.connect("/");
+      console.log(socket)
+      socket.on('connection', function(){alert("Connected")});
+      
+      socket.on('ADRESSE', function(message) {
+      console.log("inside")
+      console.log(message)
+            $("#adre").text(message.ad)
+			  $("#BUTTON2").prop('disabled', false);
+          })
+      
+      
+      	socket.on('E0', function(message) {
+			var info=message[0]
 
-
-	<script type="text/javascript" src="js/core/app.js"></script>
-	<link href="css/style.css" rel="stylesheet" type="text/css">
-	<!-- /theme JS files -->
-<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
-</head>
-
-
-<script>
-
-
-$(function() { 
- var socket = io.connect("/");
-console.log(socket)
-socket.on('connection', function(){alert("Connected")});
-
-socket.on('ADRESSE', function(message) {
-console.log("inside")
-console.log(message)
-      $("#adre").text(message.ad)
-    })
-
-
-socket.on('E1', function(message) {
-console.log(message)
-      $("#e1").text(JSON.stringify(message, undefined, 4));
-    })
- 
- socket.on('E2', function(message) {
-console.log(message)
-      $("#e2").text(JSON.stringify(message, undefined, 4));
-    })
- 
-  socket.on('E3', function(message) {
-console.log(message)
-      $("#e3").text(JSON.stringify(message, undefined, 4));
-    })
- 
- 
-   socket.on('E4', function(message) {
-console.log(message)
-      $("#e4").text(JSON.stringify(message, undefined, 4));
-    })
- 
-    socket.on('E5', function(message) {
-console.log(message)
-      $("#e5").text(JSON.stringify(message, undefined, 4));
-    })                   
-
-    socket.on('E6', function(message) {
-console.log(message)
-      $("#e6").text(JSON.stringify(message, undefined, 4));
-    })      
-launch=function(){
-
-    var ee = $("#te").val()
-    console.log(ee)
-     socket.emit('MOTOR_ID', ee);
- }
-launch2=function(){
-
-
-     socket.emit('SOS',"OK");
- }
-
-});
- 
-</script>
-
-
-
-
-<body class="pace-done sidebar-xs">
-
-<!-- Main navbar -->
-	<div class="navbar navbar-inverse">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="images/Logo_Lab_EY.png" alt=""></a>
-
-			<ul class="nav navbar-nav visible-xs-block">
-				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-				<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
-			</ul>
-		</div>
-
-		<div class="navbar-collapse collapse" id="navbar-mobile">
-			<ul class="nav navbar-nav">
-				<li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-
-
-			</ul>
-
-		
-		</div>
-	</div>
-
-
-	<!-- Page container -->
-	<div class="page-container">
-
-		<!-- Page content -->
-		<div class="page-content">
-
-			<!-- Main sidebar -->
-			<div class="sidebar sidebar-main">
-				<div class="sidebar-content">
-
-					<!-- User menu -->
+			$("#M1").text(info.address)
+			$("#M2").text(info.blockNumber)
+			$("#M3").text(info.args.description)
+			$("#M4").text("to be done")			
+			
+		$("#e0").text(JSON.stringify(message, undefined, 4));
+			
+			
+          })
+      
+      	
+      socket.on('E1', function(message) {
+      console.log(message)
+            $("#e1").text(JSON.stringify(message, undefined, 4));
+          })
+       
+       socket.on('E2', function(message) {
+      console.log(message)
+            $("#e2").text(JSON.stringify(message, undefined, 4));
+          })
+       
+        socket.on('E3', function(message) {
+      console.log(message)
+            $("#e3").text(JSON.stringify(message, undefined, 4));
+          })
+       
+       
+         socket.on('E4', function(message) {
+      console.log(message)
+            $("#e4").text(JSON.stringify(message, undefined, 4));
+          })
+       
+          socket.on('E5', function(message) {
+      console.log(message)
+            $("#e5").text(JSON.stringify(message, undefined, 4));
+          })                   
+      
+          socket.on('E6', function(message) {
+      console.log(message)
+            $("#e6").text(JSON.stringify(message, undefined, 4));
+          })      
+      launch=function(){
+      
+          var ee = $("#te").val()
+          console.log(ee)
+           socket.emit('MOTOR_ID', ee);
+       }
+      launch2=function(){
+      
+      
+           socket.emit('SOS',"OK");
+       }
+      
+      });
+       
+   </script>
+   <body class="pace-done sidebar-xs bgimg">
+      <!-- Main navbar -->
+      <div class="navbar navbar-inverse">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="index.html"><img src="images/Logo_Lab_EY.png" alt=""></a>
+            <ul class="nav navbar-nav visible-xs-block">
+               <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+               <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+         </div>
+         <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+               <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+         </div>
+      </div>
+      <!-- Page container -->
+      <div class="page-container">
+         <!-- Page content -->
+         <div class="page-content">
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main">
+               <div class="sidebar-content">
+                  <!-- User menu -->
+                  <!-- /user menu -->
+                  <!-- Main navigation -->
+                  <div class="sidebar-category sidebar-category-visible">
+                     <div class="category-content no-padding">
+                        <ul class="navigation navigation-main navigation-accordion">
+                           <!-- Main -->
+                           <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Home"></i></li>
+                           <li class="active"><a href="index.html"><i class="icon-git-pull-request"></i> <span>E-BUS</span></a></li>
+                           <li ><a href="map.html"><i class="icon-location4"></i> <span>Localization</span></a></li>
+                           <li ><a href="provider.html"><i class="icon-arrow-right16"></i> <span>Provider</span></a></li>
+                           <!-- /page kits -->
+                        </ul>
+                     </div>
+                  </div>
+                  <!-- /main navigation -->
+               </div>
+            </div>
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="content-wrapper">
 				
-					<!-- /user menu -->
+				
+				
+				
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <h6 class="panel-title">Motor search engine</h6>
+                           <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                        </div>
+                        <div class="panel-body">
+                           <div class="form-group has-feedback has-feedback-left">
+                              <div class="row">
+                                 <div class="col-md-7">
+									<p class="mini_title">Motor identification </p>
+									<p class=""><a href="#" class="btn bg-pink-400 btn-rounded btn-icon btn-xs">
+															<span class="letter-icon">1</span>
+														</a> Enter motor ID  </p>
 
-
-					<!-- Main navigation -->
-					<div class="sidebar-category sidebar-category-visible">
-						<div class="category-content no-padding">
-							<ul class="navigation navigation-main navigation-accordion">
-
-								<!-- Main -->
-								<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Home"></i></li>
-								<li class="active"><a href="index.html"><i class="icon-git-pull-request"></i> <span>E-BUS</span></a></li>
-								<li ><a href="map.html"><i class="icon-location4"></i> <span>Localization</span></a></li>
-								<li ><a href="provider.html"><i class="icon-arrow-right16"></i> <span>Provider</span></a></li>
-
-						
-								<!-- /page kits -->
-
-							</ul>
-						</div>
-					</div>
-					<!-- /main navigation -->
-
-				</div>
-			</div>
-			<!-- /main sidebar -->
-
-
-			<!-- Main content -->
-			<div class="content-wrapper" style="background-color:#939393">
-
-<p>In<%= title %></p>
+               <div class="row">
+                  <div class="col-md-12">
+									<div class="input-group">
+	
+                                       <span class="input-group-addon bg-slate-700"><i class="icon-lock2"></i></span>
+                                       <input type="text" id="te" class="form-control bg-slate" placeholder="Motor ID">
+                                       <span class="input-group-addon bg-slate-700"><i class="icon-help"></i></span>
+                                    </div>
+									   </div>   </div>
+ 									<p class=""><a href="#" class="btn bg-pink-400 btn-rounded btn-icon btn-xs">
+															<span class="letter-icon">2</span>
 					
-<div class="row">
-						<div class="col-lg-6">					
-<p>Motor ID to test: 0x1eea5236ea7c0b1bff65e9e1eea1ebd9f89485f49d04cf2e5984027a0d0a60c5</p>
-<!-- <textarea id="te" rows="1" cols="100"></textarea>-->
-<div class="form-group has-feedback has-feedback-left">
+								</a> Check identification </p>
+								 <div class="row">
+                                 <div class="col-md-4">				
+								  <button type="submit" id="BUTTON1" onclick="launch()" class="btn btn-primary">Launch identification on web3 <i class="icon-arrow-right14 position-right"></i></button>
+								</div>
+								 <div class="col-md-8">				
+										
+								 					<div class="media-left media-middle">
+														<a href="#" class="btn border-pink text-pink btn-flat btn-rounded btn-icon btn-xs"><i class="icon-statistics"></i></a>
+													</div>
+
+													<div class="media-body">
+														<a href="#" class="display-inline-block text-default text-semibold letter-icon-title">Motor address</a>
+														<div class="text-size-small" ><span class="status-mark border-blue position-left"></span> <span id="adre">Waiting identification</span></div>
+													</div>
+											</div></div>
+								   	<p class=""><a href="#" class="btn bg-pink-400 btn-rounded btn-icon btn-xs">
+															<span class="letter-icon">3</span>
+														</a> Enter motor ID  </p>
 
 
-<div class="input-group">
-												<span class="input-group-addon bg-slate-700"><i class="icon-lock2"></i></span>
-												<input type="text" id="te" class="form-control bg-slate" placeholder="Motor ID">
-												<span class="input-group-addon bg-slate-700"><i class="icon-help"></i></span>
-											</div>
-											
+									<div class="input-group">
+										 <div class="row">
+                                 <div class="col-md-4">	
+                        <button type="submit" id="BUTTON2" onclick="launch2()" class="btn btn-primary">Retrieve past transactions <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+						
+								 </div>
+                                    </div>
+						
+								 </div>
+								 
+								 
+           
+								   <div class="col-md-5">	
+											<p class="mini_title">Block details  </p>
+												
+												
+								<ul class="media-list">
+											<li class="media">
+													<div class="media-left media-middle">
+														<a href="#" class="btn border-pink text-pink btn-flat btn-rounded btn-icon btn-xs"><i class="icon-statistics"></i></a>
+													</div>
 
- <button type="submit"  onclick="launch()" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>
- </div></div>
- 
- 
- <div class="col-lg-6">	
-<p>Motor adresse: </p>
-<p id="adre">Pas d'adresse</p>
-  <button type="submit"  onclick="launch2()" class="btn btn-primary">Get info <i class="icon-arrow-right14 position-right"></i></button>
+													<div class="media-body">
+														<a href="#" class="display-inline-block text-default text-semibold letter-icon-title">Emitter address</a>
+														<div class="text-size-small" ><span class="status-mark border-blue position-left"></span> <span id="M1">Active</span></div>
+													</div>
+											</li>
+											<li class="media">
+													<div class="media-left media-middle">
+													<a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-xs"><i class="icon-alignment-unalign"></i></a>
+													</div>
 
- <div class='row'>
- <div class="col-lg-2">
-  <pre id='e1' > </pre>
-  </div>		
-  <div class="col-lg-2">
-  <pre id='e2' > </pre>
- </div>		
- <div class="col-lg-2">
-   <pre id='e3' > </pre>
-</div>		
-   <div class="col-lg-2">
-   <pre id='e4' > </pre>
- </div>		
- <div class="col-lg-2">
-     <pre id='e5' > </pre>
-	 </div>		
-	 <div class="col-lg-2">
-     <pre id='e6' > </pre>
-	 </div>		
-			</div>		
-	 </div> </div>		
+													<div class="media-body">
+														<a href="#" class="display-inline-block text-default text-semibold letter-icon-title">Block number</a>
+														<div class="text-size-small"><span class="status-mark border-blue position-left"></span>  <span id="M2">Active</span></div>
+													</div>
+											</li>
+											<li class="media">
+													<div class="media-left media-middle">
+													<a href="#" class="btn border-success text-success btn-flat btn-rounded btn-icon btn-xs"><i class="icon-checkmark3"></i></a>
+													</div>
 
-				</div>
-				<!-- /content area -->
+													<div class="media-body">
+														<a href="#" class="display-inline-block text-default text-semibold letter-icon-title">Description<a>
+														<div class="text-size-small"><span class="status-mark border-blue position-left"></span> <span id="M3">Active</span></div>
+													</div>
+											</li>	
+											<li class="media">
+													<div class="media-left media-middle">
+<a href="#" class="btn border-warning-400 text-warning-400 btn-flat btn-rounded btn-icon btn-xs"><i class="icon-spinner11"></i></a>
+													</div>
 
-			</div>
-			<!-- /main content -->
+													<div class="media-body">
+														<a href="#" class="display-inline-block text-default text-semibold letter-icon-title">Time stamp</a>
+														<div class="text-size-small"><span class="status-mark border-blue position-left"></span>  <span id="M4">Active</span></div>
+													</div>
+											</li>												
+											</ul>
 
-		</div>
-		<!-- /page content -->
 
-	</div>
-	<!-- /page container -->
-
-</body>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-12">
+                     <p>Motor ID to test: 0x1eea5236ea7c0b1bff65e9e1eea1ebd9f89485f49d04cf2e5984027a0d0a60c5</p>
+                     <!-- <textarea id="te" rows="1" cols="100"></textarea>-->
+                     <div class="col-lg-12">
+                        <p>Motor adresse: </p>
+                        <p id="adre">Pas d'adresse</p>
+                        <div class='row'>
+                           <div class="col-lg-12">
+                              <pre id='e0' > </pre>
+                           </div>
+                           <div class="col-lg-12">
+                              <pre id='e1' > </pre>
+                           </div>
+                           <div class="col-lg-12">
+                              <pre id='e2' > </pre>
+                           </div>
+                           <div class="col-lg-12">
+                              <pre id='e3' > </pre>
+                           </div>
+                           <div class="col-lg-12">
+                              <pre id='e4' > </pre>
+                           </div>
+                           <div class="col-lg-12">
+                              <pre id='e5' > </pre>
+                           </div>
+                           <div class="col-lg-12">
+                              <pre id='e6' > </pre>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- /content area -->
+            </div>
+            <!-- /main content -->
+         </div>
+         <!-- /page content -->
+      </div>
+      <!-- /page container -->
+   </body>
 </html>

@@ -122,31 +122,30 @@ global.EventChangeLogVilebrequin = vilebrequinInstance.PartChangeLog({},{fromBlo
 });
 
   socket.on('SOS', function (data) {
-  console.log(data)
-  console.log("------------------------")
-    console.log(EventAdded.get())
-    socket.emit('E1',  EventAdded.get() );
-      console.log("------------------------")
-    console.log(EventChanged.get())
-      console.log("------------------------")
-   console.log(EventReplaced.get()) 
-       socket.emit('E2',  EventReplaced.get() );
-     console.log("------------------------")
-    console.log(EventChangeLogTendeur.get())
-          socket.emit('E3',  EventChangeLogTendeur.get());
- 
-      console.log("------------------------")
-  console.log(tendeurInstance.log())
-   socket.emit('E4',  tendeurInstance.log());
+
+    console.log("------------------------")  
+    socket.emit('E0',  EventAdded.get() );
+    
+    console.log("------------------------")
+    socket.emit('E1',  EventChanged.get() );
+    
+    console.log("------------------------")
+    socket.emit('E2',  EventReplaced.get() );
 
     console.log("------------------------")
-console.log(EventChangeLogVilebrequin.get())
-   socket.emit('E5',EventChangeLogVilebrequin.get());
+   socket.emit('E3',EventChangeLogVilebrequin.get());
 
   console.log("------------------------")
-console.log(vilebrequinInstance.log())
-   socket.emit('E6', vilebrequinInstance.log());
+   socket.emit('E4', vilebrequinInstance.log());
 
+
+      console.log("------------------------")
+   socket.emit('E5',  tendeurInstance.log());
+
+   
+     console.log("------------------------")
+   socket.emit('E6',  EventChangeLogTendeur.get());
+ 
 
   })
 });
