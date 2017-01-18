@@ -111,12 +111,12 @@ global.EventReplaced = MotorInstance.PartReplaced({},{fromBlock: 0, toBlock: 'la
 global.EventAdded = MotorLedgerInstance.MotorAdded({},{fromBlock: 0, toBlock: 'latest'})
 global.EventChanged = MotorLedgerInstance.MotorChanged({},{fromBlock: 0, toBlock: 'latest'})
 
-tendeurInstance = Part.at(tendeurAddress)
-vilebrequinInstance = Part.at(vilebrequinAddress)
+global.tendeurInstance = Part.at(tendeurAddress)
+global.vilebrequinInstance = Part.at(vilebrequinAddress)
 
-EventChangeLogTendeur = tendeurInstance.PartChangeLog({},{fromBlock: 0, toBlock: 'latest'})
+global.EventChangeLogTendeur = tendeurInstance.PartChangeLog({},{fromBlock: 0, toBlock: 'latest'})
 
-EventChangeLogVilebrequin = vilebrequinInstance.PartChangeLog({},{fromBlock: 0, toBlock: 'latest'})
+global.EventChangeLogVilebrequin = vilebrequinInstance.PartChangeLog({},{fromBlock: 0, toBlock: 'latest'})
 
 
 });
@@ -125,18 +125,27 @@ EventChangeLogVilebrequin = vilebrequinInstance.PartChangeLog({},{fromBlock: 0, 
   console.log(data)
   console.log("------------------------")
     console.log(EventAdded.get())
+    socket.emit('E1',  EventAdded.get() );
       console.log("------------------------")
     console.log(EventChanged.get())
       console.log("------------------------")
    console.log(EventReplaced.get()) 
+       socket.emit('E2',  EventReplaced.get() );
      console.log("------------------------")
     console.log(EventChangeLogTendeur.get())
+          socket.emit('E3',  EventChangeLogTendeur.get());
+ 
       console.log("------------------------")
   console.log(tendeurInstance.log())
+   socket.emit('E4',  tendeurInstance.log());
+
     console.log("------------------------")
 console.log(EventChangeLogVilebrequin.get())
+   socket.emit('E5',EventChangeLogVilebrequin.get());
+
   console.log("------------------------")
 console.log(vilebrequinInstance.log())
+   socket.emit('E6', vilebrequinInstance.log());
 
 
   })

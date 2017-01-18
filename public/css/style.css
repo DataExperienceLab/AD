@@ -1,0 +1,14 @@
+
+
+
+.navbar-inverse {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    background-color: #243034!important;
+}
+
+pre{
+background-color:#000;
+color:#32faf0;
+font-family:"Courier New";
+}
